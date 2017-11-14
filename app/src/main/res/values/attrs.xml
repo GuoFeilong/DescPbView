@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DescProgressView">
+        <attr name="dpv_text_normal_color" format="color" />
+        <attr name="dpv_text_seleced_color" format="color" />
+        <attr name="dpv_text_size" format="dimension" />
+        <attr name="dev_progress_bg_color" format="color" />
+        <attr name="dev_progress_small_circle_color" format="color" />
+        <attr name="dev_progress_big_circle_color" format="color" />
+    </declare-styleable>
+</resources>
