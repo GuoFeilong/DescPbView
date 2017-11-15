@@ -14,6 +14,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private List<String> descs;
+    private int tempI = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,23 +23,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         descs = new ArrayList<>();
-        DescProgressView descProgressView = findViewById(R.id.dpv_test);
+        final DescProgressView descProgressView = findViewById(R.id.dpv_test);
         descs.add("提交");
         descs.add("上传凭证");
         descs.add("审核凭证");
         descs.add("支付赔款");
         descs.add("审核");
-        descProgressView.setProgressDescs(descs,4);
+        descProgressView.setProgressDescs(descs, 2);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                descProgressView.setProgressDescs(descs, ++tempI);
+            }
+        });
+
     }
 
     @Override

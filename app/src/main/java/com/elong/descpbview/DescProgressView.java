@@ -68,6 +68,8 @@ public class DescProgressView extends View {
     private RectF gradualRectF;
     private RectF grayRectF;
 
+    private boolean hasOnsizeChanged;
+
     public DescProgressView(Context context) {
         this(context, null);
     }
@@ -144,6 +146,7 @@ public class DescProgressView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        hasOnsizeChanged = true;
         dpViewHeight = h;
         dpViewWidth = w;
         progressContainerHeight = (int) (SCALE_OF_PROGRESS_HEIGHT * dpViewHeight);
@@ -153,7 +156,6 @@ public class DescProgressView extends View {
         smallCircleRadio = (int) (SCALE_OF_SMALL_CIRCLE_HEIGHT * dpViewHeight / 2);
         bigCircleRadio = (int) (SCALE_OF_BIG_CIRCLE_HEIGHT * dpViewHeight / 2);
         lineHeight = (int) (SCALE_OF_LINE_HEIGHT * dpViewHeight);
-
 
         getDescTextWidthAndHeight();
         getDescTextRegonPoint();
@@ -239,10 +241,23 @@ public class DescProgressView extends View {
 
     public void setProgressDescs(List<String> descs, int currentSelectPosition) {
         this.currentSelectPosition = currentSelectPosition;
+        this.textPoints4Draw.clear();
+        this.bgCirclePoints.clear();
+        this.allDescTextPoints.clear();
         if (descs != null && descs.size() > 1) {
             this.descs.clear();
             this.descs.addAll(descs);
             this.allDescTextPoints.clear();
+            if (hasOnsizeChanged) {
+                linePaint.setShader(null);
+                getDescTextWidthAndHeight();
+                getDescTextRegonPoint();
+                getBgLineRectF();
+                getBgCirclePoints();
+                getSelectedRectF();
+                getColorFullRectF();
+                getGrayRectF();
+            }
             invalidate();
         }
     }
